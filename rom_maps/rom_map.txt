@@ -1,0 +1,85 @@
+First Byte	Last Byte	Data stored
+7098		List of gift/event monsters by prebuilt ID
+20000		Strings
+286AE		Length of wandering masters' monster sets
+286EE		List of wandering masters' monster sets by ID value of 1st prebuilt monster
+2881C		
+Boss battles
+
+2 bytes	Number of enemies -1
+2 bytes	First enemy (ID value from the "prebuilt enemies" data)
+2 bytes	Second enemy (ID value from the "prebuilt enemies" data)
+2 bytes	Third enemy (ID value from the "prebuilt enemies" data)
+29773		Random encounter data
+2C03E		library - pointers to text entries
+2C422		library - text entries (strings)
+3136A		library - sizes
+31562		library - rarities
+3199f		library - upper breeding partner
+31C9F		library - upper breeding partner (duplicate list)
+31F9F		library - lower breeding partner
+3229F		library - lower breeding partner (duplicate list)
+335D2		
+Arena random rewards data
+
+3387F		arena - pointers/kiddie class
+33885		arena - kiddie class teams
+3389F		arena - pointers/c class
+338A5		arena - c class teams
+338B7		arena - pointers/b class
+338BD		arena - b class teams
+338CF		arena - pointers/a class
+338D5		arena - a class teams
+338E7		arena - pointers/s class
+338ED		arena - s class teams
+33905		arena - pointers/randomized lists
+33911		arena - randomized lists
+3a208		breeding data
+4FBC9		
+Key Rewarded by Old Man
+
+0x7 Elf
+
+0x8 Lonely
+
+0x9 Traveler
+
+0xA Brawn (Cobi Default)
+
+0xB Baffle (Tara Default)
+
+0xC Soul
+
+530F0		censored names (strings)
+58CC2		Item Data
+64641		cape resistances table
+64E60		experience to next level tables (3 byte values, 99 entries per table)
+680D4		
+skill data
+
+1 byte	MP cost
+1 byte	Element
+7 bytes	?
+2 bytes	Player base damage
+2 bytes	Player random additional damage
+2 bytes	Enemy base damage
+2 bytes	Enemy Random additional damage
+6900A		skill requirements data
+6A616		stat growth tables (1 byte entries, 99 entries per table)
+6D1B6		censored names (strings)
+72188		shop inventories
+7C000		tiles - font
+C138C		Charge's effect on personality
+C13AC		Mixed's effect on personality
+C13CC		Defend's effect on personality
+C13EC		Command's effect on personality
+D0075		
+prebuilt enemies data (part 1)
+
+D4000	D7FFF	core monster data
+182969		key generation - prefixes
+182a09		key generation - suffix chances
+20273F		dialogue - arena hints girl
+22061C		strings - list of prebuilt enemies by name
+288056		prebuilt enemies data (part 2)
+

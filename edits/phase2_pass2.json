@@ -1,0 +1,62 @@
+{
+  "194": {
+    "int_growth": 14
+  },
+  "189": {
+    "int_growth": 14
+  },
+  "170": {
+    "int_growth": 12
+  },
+  "179": {
+    "int_growth": 12
+  },
+  "230": {
+    "def_growth": 18
+  },
+  "234": {
+    "def_growth": 18
+  },
+  "251": {
+    "def_growth": 18
+  },
+  "2": {
+    "mp_growth": 12
+  },
+  "6": {
+    "mp_growth": 12
+  },
+  "12": {
+    "mp_growth": 12
+  },
+  "3": {
+    "mp_growth": 11
+  },
+  "226": {
+    "hp_growth": 16
+  },
+  "211": {
+    "hp_growth": 18
+  },
+  "141": {
+    "int_growth": 14
+  },
+  "122": {
+    "int_growth": 14
+  },
+  "45": {
+    "atk_growth": 19
+  },
+  "62": {
+    "atk_growth": 17
+  },
+  "67": {
+    "atk_growth": 17
+  },
+  "163": {
+    "def_growth": 16
+  },
+  "166": {
+    "def_growth": 16
+  }
+}

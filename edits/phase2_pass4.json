@@ -1,0 +1,74 @@
+{
+  "134": {
+    "int_growth": 14
+  },
+  "125": {
+    "int_growth": 14
+  },
+  "129": {
+    "int_growth": 14
+  },
+  "7": {
+    "mp_growth": 11
+  },
+  "15": {
+    "mp_growth": 11
+  },
+  "34": {
+    "atk_growth": 19
+  },
+  "49": {
+    "atk_growth": 19
+  },
+  "44": {
+    "atk_growth": 19
+  },
+  "61": {
+    "atk_growth": 17
+  },
+  "66": {
+    "atk_growth": 17
+  },
+  "69": {
+    "atk_growth": 17
+  },
+  "79": {
+    "atk_growth": 17
+  },
+  "60": {
+    "atk_growth": 17
+  },
+  "80": {
+    "atk_growth": 17
+  },
+  "87": {
+    "atk_growth": 17
+  },
+  "90": {
+    "agi_growth": 18
+  },
+  "99": {
+    "agi_growth": 18
+  },
+  "103": {
+    "agi_growth": 18
+  },
+  "231": {
+    "def_growth": 18
+  },
+  "237": {
+    "def_growth": 18
+  },
+  "247": {
+    "def_growth": 18
+  },
+  "252": {
+    "def_growth": 18
+  },
+  "201": {
+    "hp_growth": 14
+  },
+  "224": {
+    "hp_growth": 14
+  }
+}

@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+venv/
+.venv/
+
+# ROM files (large, add to gitignore)
+*.gbc
+*.gb
+*.rom
+
+# Generated patches
+*.ips
+*.pps
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Save states and screenshots
+*.pkl
+*.png
+*.jpg

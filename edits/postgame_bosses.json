@@ -1,0 +1,86 @@
+{
+  "24": {
+    "count": 2,
+    "boss_id": 410,
+    "field_a": 571,
+    "field_b": 573
+  },
+  "25": {
+    "count": 2,
+    "boss_id": 411,
+    "field_a": 564,
+    "field_b": 411
+  },
+  "27": {
+    "count": 2,
+    "boss_id": 108,
+    "field_a": 108,
+    "field_b": 576
+  },
+  "28": {
+    "count": 2,
+    "boss_id": 107,
+    "field_a": 554,
+    "field_b": 556
+  },
+  "30": {
+    "count": 2,
+    "boss_id": 400,
+    "field_a": 580,
+    "field_b": 579
+  },
+  "31": {
+    "count": 2,
+    "boss_id": 537,
+    "field_a": 582,
+    "field_b": 583
+  },
+  "32": {
+    "count": 2,
+    "boss_id": 432,
+    "field_a": 585,
+    "field_b": 586
+  },
+  "33": {
+    "count": 2,
+    "boss_id": 587,
+    "field_a": 588,
+    "field_b": 589
+  },
+  "34": {
+    "count": 2,
+    "boss_id": 590,
+    "field_a": 591,
+    "field_b": 437
+  },
+  "35": {
+    "count": 2,
+    "boss_id": 440,
+    "field_a": 584,
+    "field_b": 581
+  },
+  "36": {
+    "count": 2,
+    "boss_id": 578,
+    "field_a": 577,
+    "field_b": 576
+  },
+  "37": {
+    "count": 2,
+    "boss_id": 445,
+    "field_a": 580,
+    "field_b": 579
+  },
+  "38": {
+    "count": 2,
+    "boss_id": 589,
+    "field_a": 590,
+    "field_b": 588
+  },
+  "39": {
+    "count": 2,
+    "boss_id": 591,
+    "field_a": 587,
+    "field_b": 586
+  }
+}
