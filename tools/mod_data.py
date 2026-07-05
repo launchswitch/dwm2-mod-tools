@@ -126,6 +126,180 @@ JOIN_RATE = {
     0x07: "never",
 }
 
+# String pointer tables (bank 8): 2-byte LE offsets into the string-data region.
+# Each pointer indexes into one of the corresponding string data tables.
+# Pointer count = number of named entities in that category.
+
+# Family string pointers at 0x20242. ~14 families documented (Slime, Dragon,
+# Beast, Bird, Bug, Plant, Material, Water, Zombie, Devil, ?).
+TABLE_FAMILY_NAME_POINTERS = {
+    "name": "family_name_pointers",
+    "offset": 0x20242,
+    "entry_size": 2,
+    "num_entries": 14,
+    "description": "Family name string pointers (LE16 into string data at 0x213B5)",
+    "fields": {
+        "string_offset": (0, 2, "little"),
+    },
+    "enums": {},
+}
+
+# Monster species name pointers at 0x2025A.
+TABLE_MONSTER_NAME_POINTERS = {
+    "name": "monster_name_pointers",
+    "offset": 0x2025A,
+    "entry_size": 2,
+    "num_entries": 324,
+    "description": "Monster species name string pointers (LE16 into string data at 0x213F9)",
+    "fields": {
+        "string_offset": (0, 2, "little"),
+    },
+    "enums": {},
+}
+
+# Skill name string pointers at 0x2055A.
+TABLE_SKILL_NAME_POINTERS = {
+    "name": "skill_name_pointers",
+    "offset": 0x2055A,
+    "entry_size": 2,
+    "num_entries": 50,
+    "description": "Skill name string pointers (LE16 into string data at 0x21EF9)",
+    "fields": {
+        "string_offset": (0, 2, "little"),
+    },
+    "enums": {},
+}
+
+# Item name string pointers at 0x20718.
+TABLE_ITEM_NAME_POINTERS = {
+    "name": "item_name_pointers",
+    "offset": 0x20718,
+    "entry_size": 2,
+    "num_entries": 47,
+    "description": "Item name string pointers (LE16 into string data at 0x224E3)",
+    "fields": {
+        "string_offset": (0, 2, "little"),
+    },
+    "enums": {},
+}
+
+# Personality name string pointers at 0x208D6.
+TABLE_PERSONALITY_NAME_POINTERS = {
+    "name": "personality_name_pointers",
+    "offset": 0x208D6,
+    "entry_size": 2,
+    "num_entries": 27,
+    "description": "Personality name string pointers (LE16 into string data at 0x231F7)",
+    "fields": {
+        "string_offset": (0, 2, "little"),
+    },
+    "enums": {},
+}
+
+
+def parse_string_data(rom_data: bytes, table: dict) -> list[dict]:
+    """Parse a null-terminated string table.
+
+    Walks forward from the table's offset, splitting on 0x00 terminators,
+    until a configurable stop condition (next null + safety margin, or
+    fixed byte budget). Returns entries with index, rom_offset, text,
+    and byte_length for each string.
+
+    Variable-length tables are parsed lazily; editing is not supported
+    here (changing string length would shift every subsequent pointer).
+    """
+    base = table["offset"]
+    max_bytes = table.get("max_bytes", 1024)
+    max_entries = table.get("max_entries", 256)
+
+    entries = []
+    pos = base
+    end = min(base + max_bytes, len(rom_data))
+    while pos < end and len(entries) < max_entries:
+        # Find end of current string
+        start = pos
+        while pos < end and rom_data[pos] != 0x00:
+            pos += 1
+        if pos >= end:
+            break
+        # Decode printable ASCII (filter control bytes)
+        raw = rom_data[start:pos]
+        text = "".join(chr(b) if 0x20 <= b < 0x7F else "?" for b in raw)
+        entries.append({
+            "index": len(entries),
+            "rom_offset": start,
+            "byte_length": pos - start,
+            "text": text,
+        })
+        pos += 1  # skip null terminator
+    return entries
+
+
+# Family string data at 0x213B5.
+TABLE_FAMILY_NAMES = {
+    "name": "family_names",
+    "offset": 0x213B5,
+    "entry_size": 1,
+    "num_entries": 14,
+    "max_bytes": 64,
+    "description": "Family name strings (null-terminated, region up to 0x213F9)",
+    "fields": {},
+    "enums": {},
+    "parser": parse_string_data,
+}
+
+# Monster species string data at 0x213F9.
+TABLE_MONSTER_NAMES = {
+    "name": "monster_names",
+    "offset": 0x213F9,
+    "entry_size": 1,
+    "num_entries": 324,
+    "max_bytes": 2816,
+    "description": "Monster species name strings (null-terminated, region up to 0x21EF9)",
+    "fields": {},
+    "enums": {},
+    "parser": parse_string_data,
+}
+
+# Skill string data at 0x21EF9.
+TABLE_SKILL_NAMES = {
+    "name": "skill_names",
+    "offset": 0x21EF9,
+    "entry_size": 1,
+    "num_entries": 50,
+    "max_bytes": 1500,
+    "description": "Skill name strings (null-terminated, region up to 0x224E3)",
+    "fields": {},
+    "enums": {},
+    "parser": parse_string_data,
+}
+
+# Item string data at 0x224E3.
+TABLE_ITEM_NAMES = {
+    "name": "item_names",
+    "offset": 0x224E3,
+    "entry_size": 1,
+    "num_entries": 47,
+    "max_bytes": 1500,
+    "description": "Item name strings (null-terminated, region up to 0x231F7)",
+    "fields": {},
+    "enums": {},
+    "parser": parse_string_data,
+}
+
+# Personality string data at 0x231F7.
+TABLE_PERSONALITY_NAMES = {
+    "name": "personality_names",
+    "offset": 0x231F7,
+    "entry_size": 1,
+    "num_entries": 27,
+    "max_bytes": 1024,
+    "description": "Personality name strings (null-terminated, region up to ~0x23600)",
+    "fields": {},
+    "enums": {},
+    "parser": parse_string_data,
+}
+
 # ---------------------------------------------------------------------------
 # Custom parsers for variable-length tables
 # Each parser: (rom_data: bytes, table: dict) -> list[dict]
@@ -200,12 +374,41 @@ def parse_random_encounters(rom_data: bytes, table: dict) -> list[dict]:
         ("moonrock_tower_1f", 0x29AFF),
         ("moonrock_tower_2f", 0x29B14),
         ("ghost_ship_1f", 0x29B29),
+        ("ghost_ship_2f", 0x29B45),
+        ("ghost_ship_cabin", 0x29B58),
         ("ice_world", 0x29B6B),
         ("gold_mine", 0x29D5D),
         ("spooky_forest", 0x29D9B),
+        ("sleep_herb_mtn", 0x29DCA),
+        ("ice_tower_1f", 0x29DE7),
+        ("ice_tower_2f", 0x29E0C),
         ("sky_world", 0x29E2B),
+        ("fhunt_tower_1f", 0x2A028),
+        ("fhunt_tower_2f", 0x2A03D),
+        ("fhunt_tower_3f", 0x2A052),
+        ("fhunt_tower_4f", 0x2A06B),
+        ("helm_cave_1f", 0x2A084),
+        ("helm_cave_2f", 0x2A097),
+        ("helm_cave_3f", 0x2A0BA),
+        ("armor_tower_1f", 0x2A0DD),
+        ("armor_tower_2f", 0x2A0F2),
+        ("armor_tower_3f", 0x2A107),
+        ("armor_tower_4f", 0x2A120),
+        ("sword_castle_1f", 0x2A139),
+        ("sword_castle_2f", 0x2A160),
+        ("sword_castle_3f", 0x2A181),
+        ("sword_castle_4f", 0x2A1A2),
         ("limbo_world", 0x2A1BD),
+        ("darck_castle", 0x2A1FB),
         ("elf_world", 0x2A220),
+        ("agdevil_lair", 0x2A2AB),
+        ("lonely_world", 0x2A2D2),
+        ("lonely_basement", 0x2A2EB),
+        ("traveler_world", 0x2A300),
+        ("dark_merchant_tower_1f", 0x2A382),
+        ("dark_merchant_tower_2f", 0x2A393),
+        ("dark_merchant_tower_3f", 0x2A3AA),
+        ("dark_merchant_tower_4f", 0x2A3BF),
     ]
 
     entries = []
@@ -587,6 +790,16 @@ TABLES: dict[str, dict[str, Any]] = {
     "personality_defend": TABLE_PERSONALITY_DEFEND,
     "personality_command": TABLE_PERSONALITY_COMMAND,
     "shop_inventories": TABLE_SHOP_INVENTORIES,
+    "family_name_pointers": TABLE_FAMILY_NAME_POINTERS,
+    "monster_name_pointers": TABLE_MONSTER_NAME_POINTERS,
+    "skill_name_pointers": TABLE_SKILL_NAME_POINTERS,
+    "item_name_pointers": TABLE_ITEM_NAME_POINTERS,
+    "personality_name_pointers": TABLE_PERSONALITY_NAME_POINTERS,
+    "family_names": TABLE_FAMILY_NAMES,
+    "monster_names": TABLE_MONSTER_NAMES,
+    "skill_names": TABLE_SKILL_NAMES,
+    "item_names": TABLE_ITEM_NAMES,
+    "personality_names": TABLE_PERSONALITY_NAMES,
     "arena_rewards": {
         "name": "arena_rewards",
         "offset": 0x335DE,
@@ -601,8 +814,8 @@ TABLES: dict[str, dict[str, Any]] = {
         "name": "random_encounters",
         "offset": 0x29773,
         "entry_size": 1,
-        "num_entries": 16,
-        "description": "Random encounter data per area (max enemies, chance thresholds, prebuilt IDs)",
+        "num_entries": 45,
+        "description": "Random encounter data per area (45 areas; max enemies, chance thresholds, prebuilt IDs)",
         "fields": {},
         "enums": {},
         "parser": parse_random_encounters,

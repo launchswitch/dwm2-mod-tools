@@ -92,6 +92,142 @@ Watch `0xC563` (party count) for increments. When it increases, a new species ID
 
 Species 0x00A0 (160) Lv44 confirmed at `0xDFDB`. Same struct layout as bank 1.
 
+## WRAM Bank 7 (`0xD000-DFFF`, `0xFF70 = 7`) — Battle State
+
+The battle-state region holds live monster stats (current/max HP, current/max MP,
+the 5 stats, icon, level) for the player's party of 3 and the enemy side of 3.
+Each slot has the same layout; offsets below are absolute WRAM addresses.
+
+Address widths: level and stat bounds are documented as 1 byte and 2 bytes (LE u16)
+respectively. Width not yet independently confirmed via live probing; based on
+the wiki/community reference.
+
+### Level (1 byte per slot, 6 slots total)
+
+| Address | Size | Field |
+|---------|------|-------|
+| `0xD8B7` | 1 | Player - Monster 1 - Level |
+| `0xD8B8` | 1 | Player - Monster 2 - Level |
+| `0xD8B9` | 1 | Player - Monster 3 - Level |
+| `0xD8BB` | 1 | Enemy  - Monster 1 - Level |
+| `0xD8BC` | 1 | Enemy  - Monster 2 - Level |
+| `0xD8BD` | 1 | Enemy  - Monster 3 - Level |
+
+### Current HP (2 bytes LE per slot)
+
+| Address | Size | Field |
+|---------|------|-------|
+| `0xD8BF` | 2 | Player - Monster 1 - Current HP |
+| `0xD8C1` | 2 | Player - Monster 2 - Current HP |
+| `0xD8C3` | 2 | Player - Monster 3 - Current HP |
+| `0xD8C7` | 2 | Enemy  - Monster 1 - Current HP |
+| `0xD8C9` | 2 | Enemy  - Monster 2 - Current HP |
+| `0xD8CB` | 2 | Enemy  - Monster 3 - Current HP |
+
+### Max HP (2 bytes LE per slot)
+
+| Address | Size | Field |
+|---------|------|-------|
+| `0xD8CF` | 2 | Player - Monster 1 - Max HP |
+| `0xD8D1` | 2 | Player - Monster 2 - Max HP |
+| `0xD8D3` | 2 | Player - Monster 3 - Max HP |
+| `0xD8D7` | 2 | Enemy  - Monster 1 - Max HP |
+| `0xD8D9` | 2 | Enemy  - Monster 2 - Max HP |
+| `0xD8DB` | 2 | Enemy  - Monster 3 - Max HP |
+
+### Current MP (2 bytes LE per slot)
+
+| Address | Size | Field |
+|---------|------|-------|
+| `0xD8DF` | 2 | Player - Monster 1 - Current MP |
+| `0xD8E1` | 2 | Player - Monster 2 - Current MP |
+| `0xD8E3` | 2 | Player - Monster 3 - Current MP |
+| `0xD8E7` | 2 | Enemy  - Monster 1 - Current MP |
+| `0xD8E9` | 2 | Enemy  - Monster 2 - Current MP |
+| `0xD8EB` | 2 | Enemy  - Monster 3 - Current MP |
+
+### Max MP (2 bytes LE per slot)
+
+| Address | Size | Field |
+|---------|------|-------|
+| `0xD8EF` | 2 | Player - Monster 1 - Max MP |
+| `0xD8F1` | 2 | Player - Monster 2 - Max MP |
+| `0xD8F3` | 2 | Player - Monster 3 - Max MP |
+| `0xD8F7` | 2 | Enemy  - Monster 1 - Max MP |
+| `0xD8F9` | 2 | Enemy  - Monster 2 - Max MP |
+| `0xD8FB` | 2 | Enemy  - Monster 3 - Max MP |
+
+### ATK (2 bytes LE per slot)
+
+| Address | Size | Field |
+|---------|------|-------|
+| `0xD8FF` | 2 | Player - Monster 1 - ATK |
+| `0xD901` | 2 | Player - Monster 2 - ATK |
+| `0xD903` | 2 | Player - Monster 3 - ATK |
+| `0xD907` | 2 | Enemy  - Monster 1 - ATK |
+| `0xD909` | 2 | Enemy  - Monster 2 - ATK |
+| `0xD90B` | 2 | Enemy  - Monster 3 - ATK |
+
+### DEF (2 bytes LE per slot)
+
+| Address | Size | Field |
+|---------|------|-------|
+| `0xD90F` | 2 | Player - Monster 1 - DEF |
+| `0xD911` | 2 | Player - Monster 2 - DEF |
+| `0xD913` | 2 | Player - Monster 3 - DEF |
+| `0xD917` | 2 | Enemy  - Monster 1 - DEF |
+| `0xD919` | 2 | Enemy  - Monster 2 - DEF |
+| `0xD91B` | 2 | Enemy  - Monster 3 - DEF |
+
+### AGL (2 bytes LE per slot)
+
+| Address | Size | Field |
+|---------|------|-------|
+| `0xD91F` | 2 | Player - Monster 1 - AGL |
+| `0xD921` | 2 | Player - Monster 2 - AGL |
+| `0xD923` | 2 | Player - Monster 3 - AGL |
+| `0xD927` | 2 | Enemy  - Monster 1 - AGL |
+| `0xD929` | 2 | Enemy  - Monster 2 - AGL |
+| `0xD92B` | 2 | Enemy  - Monster 3 - AGL |
+
+### INT (2 bytes LE per slot)
+
+| Address | Size | Field |
+|---------|------|-------|
+| `0xD92F` | 2 | Player - Monster 1 - INT |
+| `0xD931` | 2 | Player - Monster 2 - INT |
+| `0xD933` | 2 | Player - Monster 3 - INT |
+| `0xD937` | 2 | Enemy  - Monster 1 - INT |
+| `0xD939` | 2 | Enemy  - Monster 2 - INT |
+| `0xD93B` | 2 | Enemy  - Monster 3 - INT |
+
+### WLD / Wildness (2 bytes LE per slot)
+
+| Address | Size | Field |
+|---------|------|-------|
+| `0xD93F` | 2 | Player - Monster 1 - WLD |
+| `0xD941` | 2 | Player - Monster 2 - WLD |
+| `0xD943` | 2 | Player - Monster 3 - WLD |
+| `0xD947` | 2 | Enemy  - Monster 1 - WLD |
+| `0xD949` | 2 | Enemy  - Monster 2 - WLD |
+| `0xD94B` | 2 | Enemy  - Monster 3 - WLD |
+
+### Icon (2 bytes per slot)
+
+| Address | Size | Field |
+|---------|------|-------|
+| `0xD958` | 2 | Player - Monster 1 - Icon |
+| `0xD95A` | 2 | Player - Monster 2 - Icon |
+| `0xD95C` | 2 | Player - Monster 3 - Icon |
+| `0xD960` | 2 | Enemy  - Monster 1 - Icon |
+| `0xD962` | 2 | Enemy  - Monster 2 - Icon |
+| `0xD964` | 2 | Enemy  - Monster 3 - Icon |
+
+**Notes:**
+- **Layout pattern:** within each stat group, the 6 slots interleave Player(1,2,3) and Enemy(1,2,3) with gaps of 1 byte (e.g. `0xD8B7..0xD8B9` Player, `0xD8BA` padding, `0xD8BB..0xD8BD` Enemy). Width is consistent across slots.
+- **Confidence:** **[Wiki-documented]** — these addresses come from a community reference and have not been independently verified via live PyBoy probing in this repo. They should be confirmed before use in any code that depends on battle-state integrity.
+- **Use cases:** HP/MP edits for debug/save editors, stat-tampering mods, in-battle stat display widgets, party/enemy sync checks for shiny/recruitment systems.
+
 ---
 
 ## HRAM (`0xFF80-FFFE`)

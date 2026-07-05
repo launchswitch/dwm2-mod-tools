@@ -1,16 +1,24 @@
 First Byte	Last Byte	Data stored
 7098		List of gift/event monsters by prebuilt ID
-20000		Strings
+20000		Strings (bank 8 — universal string region)
+
+String pointer tables (bank 8):
+20242		Pointers to family names
+2025A		Pointers to monster species names
+2055A		Pointers to skill names
+20718		Pointers to item names
+208D6		Pointers to personality names
+
+String data (bank 8):
+213B5		String data — families
+213F9		String data — monster species
+21EF9		String data — skill names
+224E3		String data — item names
+231F7		String data — personalities
 286AE		Length of wandering masters' monster sets
 286EE		List of wandering masters' monster sets by ID value of 1st prebuilt monster
-2881C		
-Boss battles
-
-2 bytes	Number of enemies -1
-2 bytes	First enemy (ID value from the "prebuilt enemies" data)
-2 bytes	Second enemy (ID value from the "prebuilt enemies" data)
-2 bytes	Third enemy (ID value from the "prebuilt enemies" data)
-29773		Random encounter data
+2881C		Boss battles (8-byte entries)
+29773		Random encounter data (45 areas: pointer list per screen + variable-length encounter structures)
 2C03E		library - pointers to text entries
 2C422		library - text entries (strings)
 3136A		library - sizes
@@ -82,4 +90,51 @@ D4000	D7FFF	core monster data
 20273F		dialogue - arena hints girl
 22061C		strings - list of prebuilt enemies by name
 288056		prebuilt enemies data (part 2)
+
+Useful Structures
+-----------------
+
+Boss battles (0x2881C) — 8 bytes per entry:
+  0x0  2 bytes  Number of enemies -1
+  0x2  2 bytes  First enemy (prebuilt ID)
+  0x4  2 bytes  Second enemy (prebuilt ID)
+  0x6  2 bytes  Third enemy (prebuilt ID)
+
+Random encounter data (0x29773) — variable-length per area.
+  Each area starts with a 2-byte LE pointer list, one per screen,
+  pointing to the area's encounter structure(s). The structure is:
+  0x0  1 byte   Maximum number of monsters per battle
+  0x1  1 byte   Range (compared against 5 chance thresholds)
+  0x2  5 bytes  Compare values 1-5 (cumulative chance bands)
+  0x7  2 bytes  First enemy (prebuilt ID)
+  0x9  2 bytes  Second enemy (prebuilt ID)
+  0xb  2 bytes  Third enemy (prebuilt ID)
+  0xd  2 bytes  Fourth enemy (prebuilt ID)
+  0xf  2 bytes  Fifth enemy (prebuilt ID)
+  Bytes 0x9-0x10 are only present if the corresponding enemy slot is used.
+  Example (Oasis overworld): 01 07 03 07 00 00 00 02 00 03 00
+  = max 1 enemy, range 7, 3/7 chance of prebuilt 0x02 alone, otherwise
+  7/7 chance of prebuilt 0x03 alone.
+
+Core monster data (0xd433b) — 47 bytes per species:
+  0x0  1 byte   Family
+  0x1  1 byte   Gender ratio (0 always male, 1 mostly male, 2 50/50, 3 mostly female)
+  0x2  1 byte   Flying flag (LegSweep immunity)
+  0x3  1 byte   Metal flag
+  0x4  1 byte   Join rate (see JOIN_RATE enum)
+  0x5  1 byte   Unknown (1=flying, 2=Water family, 3=Starfish)
+  0x6  1 byte   Max level w/o breeding
+  0x7  1 byte   Experience growth rate
+  0x8  1 byte   Skill 1 ID
+  0x9  1 byte   Skill 2 ID
+  0xa  1 byte   Skill 3 ID
+  0xb  1 byte   Unknown (related to random world selection?)
+  0xc  1 byte   HP growth
+  0xd  1 byte   MP growth
+  0xe  1 byte   Atk growth
+  0xf  1 byte   Def growth
+  0x10 1 byte   Agi growth
+  0x11 1 byte   Int growth
+  0x12-0x2c 27 bytes  Resistances (one byte per element/effect ID; see RESISTANCE_ELEMENT_IDS)
+  0x2d-0x2e 2 bytes  Base exp yield (LE u16)
 
