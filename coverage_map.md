@@ -59,16 +59,16 @@
 
 | Subsystem | Verdict | Notes |
 |-----------|---------|-------|
-| **Damage formula** (ATK/DEF/power/level combination) | **[Unknown]** | Highest-value gap; needs disassembly of the battle routine |
-| **Critical hits** | **[Unknown]** | Confirmed to exist (`core_monster_data.md:61` "stored elsewhere"); address unmapped |
-| **Resistance byte value semantics** (0/1/2/3 = immune/resist/normal/weak?) | **[Unknown]** | Element vocabulary is mapped; the *value* meaning is in code |
-| **Turn order / initiative / action queue** | **[Unknown]** | Battle-state RAM is wiki-documented but resolution logic isn't |
+| **Damage formula** (ATK/DEF/power/level combination) | **[Mechanic-documented]** for basic attack: `[ATK/2 - DEF/4]` then × skill multiplier then × resistance multiplier | `mechanics/mcbick_guide/` (v4.0 Intro section); per-skill multipliers in `list-of-battle-skills.md` |
+| **Critical hits** | **[Mechanic-documented]**: attribute(0-3)→0/1/2/4 of 128 + courage tiers (max 7/128 at 255) + skill rates (EvilSlash=64/128, Massacre=128/128); max combined 11/128 | `mechanics/mcbick_guide/critical-attacks.md` |
+| **Resistance byte value semantics** (0/1/2/3 = immune/resist/normal/weak?) | **[Mechanic-documented]**: 0=weak×1.5, 1=normal×1, 2=resist×0.5, 3=immune×0; status success rate also scales (3/3, 2/3, 1/3, 0/3) | `mechanics/mcbick_guide/list-of-resistance-multipliers.md` |
+| **Turn order / initiative / action queue** | **[Partially documented]**: priority rules for start-of-round skills ("takes effect at the start of the round and has priority over SquallHit"); full turn-order sort still [Unknown] | `mechanics/mcbick_guide/list-of-battle-skills.md` (per-skill priority notes) |
 | **AI action selection** per tactic/personality | **[Unknown]** | No AI-behavior table in our data |
-| **Status-effect durations / tick / cure** | **[Unknown]** | Status *affinities* fold into the resistance table; resolution logic isn't |
-| **Hit / accuracy resolution** | **[Unknown]** | No accuracy field in skills; no hit-rate table |
-| **Skill execution routine** (what runs when a skill is used) | **[Unknown]** | In undisassembled bank |
+| **Status-effect durations / tick / cure** | **[Mechanic-documented]** for major statuses: Sleep max 2 turns + 50% wake-on-hit; Poison `min(50, 1 + MaxHP/8)` per turn, ends at battle end; Paralyze permanent + party-wide auto-wipe; buff durations per skill | `mechanics/mcbick_guide/list-of-battle-skills.md` |
+| **Hit / accuracy resolution** | **[Mechanic-documented]**: evasion = size tier (S=2/100, M=1/100, L/LL/G=0) + AGI-difference tier (max 40/100 at >450 diff); SideStep=40/100; max 42/100, min 1/100 | `mechanics/mcbick_guide/evasion.md` |
+| **Skill execution routine** (what runs when a skill is used) | **[Mechanic-documented]** at the per-skill level: targeting, multipliers, priority, buff/debuff application | `mechanics/mcbick_guide/list-of-battle-skills.md` |
 
-**Implication:** Combat *representation* (instantiate a battle, populate stats/skills/resistances) is fully portable. Combat *resolution* (compute damage, decide turn order, apply status, roll hits/crits) requires either (a) deeper disassembly work — see `disassembly_inventory.md` — or (b) original MonTamer design informed by the maintainer's knowledge of DWM2's feel. **(b) is the planned path.**
+**Implication:** Combat *representation* (instantiate a battle, populate stats/skills/resistances) is fully portable. Combat *resolution* (damage formula, crits, evasion, resistance multipliers, status durations, per-skill mechanics) is now **largely portable** from `mechanics/mcbick_guide/`. The remaining [Unknown] items are: AI action selection per tactic/personality, full turn-order sort (beyond priority skills), and the courage/motivation gain curve. For those, MonTamer will use original design informed by the maintainer's knowledge.
 
 ---
 
