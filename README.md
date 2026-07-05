@@ -6,13 +6,24 @@ This repository contains everything you need to edit game data tables — monste
 
 ## What's Inside
 
-| Directory | Contents |
+| Directory / File | Contents |
 |-----------|----------|
 | [`tools/`](tools/) | Python ROM hacking utilities |
 | [`monster_data/`](monster_data/) | Complete species database (315 monsters, 554 breeding formulas) |
+| [`mechanics/`](mechanics/) | Mechanic specs: recruitment formula, resistances, skill requirements, encounters, items, magic keys, strings |
 | [`rom_maps/`](rom_maps/) | ROM and RAM memory maps |
 | [`dwm2u_reference/`](dwm2u_reference/) | DWM2 Ultimate hack analysis (case study) |
 | [`edits/`](edits/) | Example balancing edits (ready-to-apply JSON configs) |
+| [`coverage_map.md`](coverage_map.md) | **One-stop verdict**: which subsystems are faithful-portable vs. need original design |
+| [`disassembly_inventory.md`](disassembly_inventory.md) | What the vendored niyadev disassembly covers (and what it doesn't) |
+| [`personality_research_findings.md`](personality_research_findings.md) | DWM2 personality system: 4 traits → 27 personalities, tactics vs. personalities |
+| [`stat_growth_research_findings.md`](stat_growth_research_findings.md) | Stat growth is species+level only (personality does NOT affect it) |
+| [`combat_research_findings.md`](combat_research_findings.md) | Combat data inventory (skills, resistances, items, encounters) |
+| [`combat_reassessment_findings.md`](combat_reassessment_findings.md) | Re-assessment after string-table / WRAM additions |
+
+### For MonTamer (the reimplementation project)
+
+`dwm2-hacking-tools/` is the **single source of truth** that MonTamer's design specs reference. Before specing any DWM2-derived subsystem, read [`coverage_map.md`](coverage_map.md) — it says whether to implement faithfully (from a [ROM-verified] or [Mechanic-documented] source) or design originally (for an [Unknown]).
 
 ## Quick Start
 
