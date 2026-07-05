@@ -4,6 +4,15 @@
 > GameFAQs section URL: https://gamefaqs.gamespot.com/gbc/525414-dragon-warrior-monsters-2-cobis-journey/faqs/78461/critical-attacks
 > Neoseeker mirror URL: https://www.neoseeker.com/dwm2/faqs/3080761-dragon-quest-monsters-2-cobis-journey-advanced-skill.html (single-page)
 
+> **Superseded for the general mechanic by v4.0.** The v4.0 FAQ consolidated
+> the "Critical Attacks" and "Critical Attributes" sections into a single
+> **Critical Rates** page, captured in [`critical-attributes.md`](./critical-attributes.md)
+> (which has the revised battle mechanics prose, the attribute/courage/motivation
+> rate tables, and per-species crit rates for ALL families). This file is
+> retained because it documents two spec details the v4.0 page does not
+> restate: the **per-skill critical rates** for EvilSlash (64/128) and
+> Massacre (128/128), and the maximum critical rate (11/128).
+
 ---
 
 Critical attacks occur when using a normal attack or Physical skill. The critical rate is based on a monster's critical attribute and/or their Courage stat. Each monster is assigned a value from 0-3 for their critical attribute, this cannot be raised through breeding. This rate is fixed to the monster's type and can not be altered. A monster's Courage stat however can be raised and is based on the actions your monster takes during each battle, see my personality mechanics for more info. Critical attacks can only be done on normal attacks and Physical skills, see my list of skills for info.

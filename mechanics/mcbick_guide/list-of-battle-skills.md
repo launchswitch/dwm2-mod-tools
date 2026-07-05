@@ -4,6 +4,18 @@
 > GameFAQs section URL: https://gamefaqs.gamespot.com/gbc/525414-dragon-warrior-monsters-2-cobis-journey/faqs/78461/list-of-battle-skills
 > Neoseeker mirror URL: https://www.neoseeker.com/dwm2/faqs/3080761-dragon-quest-monsters-2-cobis-journey-advanced-skill.html (single-page)
 
+> **Superseded by the v4.0 type-split skill tables**, which are more complete
+> (they add a `Description`/`Mechanics` column and per-resistance damage
+> values). Prefer:
+> [`skills-physical.md`](./skills-physical.md),
+> [`skills-spell.md`](./skills-spell.md),
+> [`skills-normal.md`](./skills-normal.md),
+> [`skills-breath.md`](./skills-breath.md),
+> [`skills-dance.md`](./skills-dance.md),
+> [`field-skills.md`](./field-skills.md).
+> This v1.1 consolidated list is retained as a cross-reference; it groups
+> skills by attribute rather than by type.
+
 ---
 
 Skill Name (Type, MP) - Skill Details
