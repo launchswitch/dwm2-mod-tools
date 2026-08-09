@@ -70,7 +70,7 @@ The gain table (the per-command deltas):
 - **Low Motivation (<50):** Suppression. Acts as a negative multiplier — even
   spamming Charge barely moves the baseline Courage stat.
 
-## Implications for MonTamer
+## Design implications
 
 - This closes the last **[Unknown]** from the coverage map's combat section
   (courage/motivation gain curve).

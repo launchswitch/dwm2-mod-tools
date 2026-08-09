@@ -21,9 +21,9 @@ This repository contains everything you need to edit game data tables — monste
 | [`combat_research_findings.md`](combat_research_findings.md) | Combat data inventory (skills, resistances, items, encounters) |
 | [`combat_reassessment_findings.md`](combat_reassessment_findings.md) | Re-assessment after string-table / WRAM additions |
 
-### For MonTamer (the reimplementation project)
+### Planning your own mod or reimplementation
 
-`dwm2-hacking-tools/` is the **single source of truth** that MonTamer's design specs reference. Before specing any DWM2-derived subsystem, read [`coverage_map.md`](coverage_map.md) — it says whether to implement faithfully (from a [ROM-verified] or [Mechanic-documented] source) or design originally (for an [Unknown]).
+This repo is designed as a **single source of truth** for DWM2 game data. Before designing any subsystem, read [`coverage_map.md`](coverage_map.md) — it says whether a mechanic is [ROM-verified], [Mechanic-documented], or [Unknown].
 
 ## Quick Start
 

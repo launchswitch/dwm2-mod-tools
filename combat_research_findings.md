@@ -1,7 +1,7 @@
 # DWM2 Combat — Research Findings
 
 **Date:** 2026-07-05
-**Author:** Investigation agent (MonTamer reimplementation reference)
+**Author:** Investigation agent (reimplementation reference)
 **Scope:** INVESTIGATION AND FINDINGS ONLY. No design, no code, no recommendations.
 **Predecessors:** [`personality_research_findings.md`](./personality_research_findings.md) and [`stat_growth_research_findings.md`](./stat_growth_research_findings.md) (established the 4-trait/27-personality model, that Charge/Mixed/Defend/Command are battle tactics, and that stat growth is species-driven not personality-driven).
 
@@ -259,7 +259,7 @@ There is **no standalone status-effect definition table** (no "status effects" e
 - **In-battle item-use routine** — code, not data. [Unknown]
 - **Shop inventories** are separately mapped (`0x72188`, `mod_data.py:547-572`, 20 shops × up to 16 item IDs, `0xFF`-terminated) — so where items are sold is extractable, even though item *names* are not. [ROM-verified]
 
-**Bottom line for Q6:** The item **table exists** with a rich, partially-decoded schema (effect type, usability, targeting, icon, price) — enough to know *which* items exist and *that* they have in-battle effects. The effect *parameters* and the item-name strings are not decoded. `MonTamer/data/items.yaml` (not yet created) has a real ROM table to map from.
+**Bottom line for Q6:** The item **table exists** with a rich, partially-decoded schema (effect type, usability, targeting, icon, price) — enough to know *which* items exist and *that* they have in-battle effects. The effect *parameters* and the item-name strings are not decoded. A future items data file has a real ROM table to map from.
 
 ---
 

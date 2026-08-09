@@ -1,7 +1,7 @@
 # DWM2 Combat — Re-assessment of Maintainer's 4 Additions
 
 **Date:** 2026-07-05
-**Author:** Re-assessment investigation agent (MonTamer reference)
+**Author:** Re-assessment investigation agent
 **Scope:** INVESTIGATION ONLY. Determine whether four maintainer additions change the prior "what's IN vs. NOT" combat/personality verdict. No design, no recommendations.
 **Predecessors:**
 - [`combat_research_findings.md`](./combat_research_findings.md) — established combat DATA is in extraction, combat RESOLUTION RULES are not.

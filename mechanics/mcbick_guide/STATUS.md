@@ -2,7 +2,7 @@
 
 Target: complete text of every section of the McBick "Advanced Skill Guide" FAQ for
 Dragon Warrior Monsters 2: Cobi's Journey (GameFAQs FAQ #78461), to serve as
-"MonTamer's skill database" reference for the hacking tool.
+the skill database reference for the hacking tool.
 
 ## Current state: v4.0 capture COMPLETE
 

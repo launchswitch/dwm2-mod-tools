@@ -1,4 +1,4 @@
-# Coverage Map — What MonTamer Can Port Faithfully vs. Must Design
+# Coverage Map — What Can Be Ported Faithfully vs. Must Be Designed
 
 **Date:** 2026-07-05
 **Purpose:** Single-paragraph-per-subsystem answer to "is this a faithful port or an original design?" Read this before specing any combat/personality/recruitment work. Cross-links the research findings and mechanic docs that back each verdict.
@@ -16,7 +16,7 @@
 | Subsystem | Verdict | Source |
 |-----------|---------|--------|
 | Species definitions (315) | [ROM-verified] — ported | `monster_data/`, `monster_data_external.xml` |
-| Stat growth (species × level) | [ROM-verified] — ported | `stat_growth_research_findings.md`; simplified v1 model in `MonTamer.Core/StatCalculator.cs` |
+| Stat growth (species × level) | [ROM-verified] — ported | `stat_growth_research_findings.md`; simplified v1 model |
 | Breeding (554 formulas, 4 structures) | [ROM-verified] — ported | `monster_data/breeding_data.md` |
 
 ---
@@ -71,7 +71,7 @@
 | **INT's role in combat** | **[Wiki-documented]**: NOT spell damage. Three roles: (1) skill-unlock gateway [ROM-verified], (2) AI decision quality under tactics, (3) passive status-evasion. | `mechanics/stat_combat_roles.md` |
 | **Skill execution routine** (what runs when a skill is used) | **[Mechanic-documented]** at the per-skill level: targeting, multipliers, priority, buff/debuff application | `mechanics/mcbick_guide/list-of-battle-skills.md` |
 
-**Implication:** Combat *representation* (instantiate a battle, populate stats/skills/resistances) is fully portable. Combat *resolution* (damage formula, crits, evasion, resistance multipliers, status durations, per-skill mechanics, turn order, AI quality, courage/motivation gain) is now **fully documented** — see `mechanics/mcbick_guide/`, `mechanics/stat_combat_roles.md`, and `mechanics/courage_motivation.md`. The courage/motivation gain curve is the last piece: starting value 0, cap 255, command-driven deltas (Charge/Mixed/Cautious/Fight/Run/Item table), high-motivation (>150) acceleration + +50% strong-attack chance, low-motivation (<50) suppression. Remaining design calls (not [Unknown] — just numerical tier choices MonTamer must make): exact point magnitudes for "Large/Small/Massive" deltas, and the level→trait-shift-speed curve. The full DWM2 combat loop is now spec'd concretely enough to implement faithfully.
+**Implication:** Combat *representation* (instantiate a battle, populate stats/skills/resistances) is fully portable. Combat *resolution* (damage formula, crits, evasion, resistance multipliers, status durations, per-skill mechanics, turn order, AI quality, courage/motivation gain) is now **fully documented** — see `mechanics/mcbick_guide/`, `mechanics/stat_combat_roles.md`, and `mechanics/courage_motivation.md`. The courage/motivation gain curve is the last piece: starting value 0, cap 255, command-driven deltas (Charge/Mixed/Cautious/Fight/Run/Item table), high-motivation (>150) acceleration + +50% strong-attack chance, low-motivation (<50) suppression. Remaining design calls (not [Unknown] — just numerical tier choices to make): exact point magnitudes for "Large/Small/Massive" deltas, and the level→trait-shift-speed curve. The full DWM2 combat loop is now spec'd concretely enough to implement faithfully.
 
 ---
 

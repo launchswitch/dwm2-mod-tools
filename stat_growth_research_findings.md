@@ -1,7 +1,7 @@
 # DWM2 Stat Growth & Personality — Research Findings
 
 **Date:** 2026-07-05
-**Author:** Investigation agent (MonTamer reimplementation reference)
+**Author:** Investigation agent (reimplementation reference)
 **Scope:** INVESTIGATION AND FINDINGS ONLY. No design, no code, no recommendations.
 **Predecessor:** [`personality_research_findings.md`](./personality_research_findings.md) (read first — established the 4-trait / 27-personality model and that Charge/Mixed/Defend/Command are battle tactics, not personalities).
 
@@ -100,14 +100,14 @@ Three observations that jointly answer Q4:
 
 ---
 
-## Implication for MonTamer's StatCalculator
+## Implication for stat calculators
 
-**Factual implication only (not a design recommendation):** The current MonTamer `StatCalculator.Compute(growth, level, personality, modifiers)` model — which multiplies each stat by a per-personality modifier — encodes a mechanic (personality→stat-growth) that, per the evidence above, **does not correspond to anything in DWM2's stat-growth path**. In DWM2:
+**Factual implication only (not a design recommendation):** A `Compute(growth, level, personality, modifiers)` stat model — which multiplies each stat by a per-personality modifier — encodes a mechanic (personality→stat-growth) that, per the evidence above, **does not correspond to anything in DWM2's stat-growth path**. In DWM2:
 
 - Stat growth inputs = **species growth bytes + per-level table** (no personality). [ROM-verified inputs]
-- Personality's mechanical effects = **AI, obedience, special actions** — all deferred in MonTamer v1, and none of which are stat-multipliers anyway. [Wiki-documented effects; none mapped in ROM]
+- Personality's mechanical effects = **AI, obedience, special actions** — none of which are stat-multipliers anyway. [Wiki-documented effects; none mapped in ROM]
 
-So the `personality` parameter in `StatCalculator` is carrying a mechanic that the source game applies elsewhere (battle behavior), not at stat-computation time. Whether MonTamer should drop it, repurpose it, or keep it as an original-design choice is a **design decision for the author** and out of scope for this findings doc. The factual point is: **a faithful DWM2 stat-growth model takes species growth + level only; personality is not an input.**
+So the `personality` parameter in `StatCalculator` is carrying a mechanic that the source game applies elsewhere (battle behavior), not at stat-computation time. Whether to drop it, repurpose it, or keep it as an original-design choice is a **design decision** and out of scope for this findings doc. The factual point is: **a faithful DWM2 stat-growth model takes species growth + level only; personality is not an input.**
 
 ---
 

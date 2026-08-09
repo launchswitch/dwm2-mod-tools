@@ -16,7 +16,7 @@ had data tables (skill MP costs, damage values, resistance bytes) but the
 resistance value semantics, status durations), this guide closes those gaps
 with concrete formulas.
 
-Per-section value for MonTamer:
+Per-section value:
 
 | File | Closes which coverage_map gap |
 |---|---|
@@ -69,8 +69,8 @@ From the v4.0 "Intro to Skills" section:
 
 ## Provenance & licensing
 
-McBick's FAQ is publicly hosted on GameFAQs. Captured here as reference for the
-MonTamer reimplementation project per the same "specification, not starting
-point" posture used for the rest of `dwm2-hacking-tools/`. Credit: McBick
+McBick's FAQ is publicly hosted on GameFAQs. Captured here as reference for
+the DWM2 modding community, per the same "specification, not starting
+point" posture used for the rest of this repo. Credit: McBick
 (author). v4.0 captured 2026-07-05 from browser-saved HTML; v1.1 cross-
 references from the Neoseeker mirror (2020).

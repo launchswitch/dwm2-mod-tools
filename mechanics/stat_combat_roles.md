@@ -26,14 +26,14 @@ When monsters fight under automated orders (Charge, Mixed, Defense tactics), INT
 - **Low INT:** Monsters are highly prone to wasting turns, missing physical strikes, or casting ineffective/wrong spells.
 - **High INT:** The AI becomes actively aware of battle conditions. For example, a high-INT monster can identify when an enemy is preparing an anti-group counter (like Imitate) and will switch to single-target attacks to avoid triggering it.
 
-**Implication for MonTamer:** This is the only concrete spec we have for the [Unknown] "AI action selection per tactic" gap. v1 can model this as: low-INT monsters under tactics pick actions randomly (or with naive heuristics); high-INT monsters pick contextually-optimal actions. The INT threshold tiers are not numerically documented — that's a design decision for MonTamer.
+**Design implication:** This is the only concrete spec we have for the [Unknown] "AI action selection per tactic" gap. A mod can model this as: low-INT monsters under tactics pick actions randomly (or with naive heuristics); high-INT monsters pick contextually-optimal actions. The INT threshold tiers are not numerically documented — that's a design decision.
 
 ### 3. Status-effect evasion
 [Wiki-documented — not in McBick]
 
 A higher INT grants passive resistance to enemy status-debilitating magic (Sleep, Poison, etc.). It improves the monster's chance to dodge or shrug off these negative statuses. This stacks with (or modifies) the per-species resistance byte for the status element in question.
 
-**Implication for MonTamer:** Status application has two checks — the skill's success rate (per `mcbick_guide/list-of-resistance-multipliers.md`: 3/3, 2/3, 1/3 by resistance tier) AND the defender's INT-based passive evasion. The interaction math is not documented; design decision.
+**Design implication:** Status application has two checks — the skill's success rate (per `mcbick_guide/list-of-resistance-multipliers.md`: 3/3, 2/3, 1/3 by resistance tier) AND the defender's INT-based passive evasion. The interaction math is not documented; design decision.
 
 ---
 
@@ -48,7 +48,7 @@ Monsters with higher AGI have a much greater chance of acting before slower alli
 - **Last Word** trait → monster always acts last, regardless of AGI.
 - **Early Bird** trait → monster always acts first, regardless of AGI.
 
-**Implication for MonTamer:** Closes part of the [Unknown] "turn order" gap. v1 model: sort action queue by AGI descending, with trait overrides. Tie-breaking for equal AGI is not documented — design decision. (Random? Party-before-enemy? Input order?)
+**Design implication:** Closes part of the [Unknown] "turn order" gap. A mod can model this as: sort action queue by AGI descending, with trait overrides. Tie-breaking for equal AGI is not documented — design decision. (Random? Party-before-enemy? Input order?)
 
 ### 2. Accuracy and evasion
 [Partial ROM-verified — the evasion half is in `mcbick_guide/evasion.md`; the accuracy-on-hit half is wiki-documented]

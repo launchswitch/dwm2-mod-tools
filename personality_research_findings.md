@@ -1,7 +1,7 @@
 # DWM2 Personality System — Research Findings
 
 **Date:** 2026-07-05
-**Author:** Investigation agent (MonTamer reimplementation reference)
+**Author:** Investigation agent (reimplementation reference)
 **Scope:** INVESTIGATION AND FINDINGS ONLY. No design, no code, no recommendations.
 
 **Confidence legend** (used on every claim below):
@@ -13,7 +13,7 @@
 
 ## Summary
 
-DWM2's personality system is built on **four hidden integer traits** — Bravery, Prudence, Caring, and Motivation — that are invisible to the player, rise and fall based on in-battle behavior (which tactic/command the monster performs, whether it flees), and combine to select one of **27 personality types** (a 3×3×3 cube of Bravery×Prudence×Caring tiers, with Motivation acting as a separate modifier and enabler). The currently-shipped MonTamer model — `Personality = { Charge, Mixed, Defend, Command }` — **mis-identifies the four battle commands as personality types**. In the ROM, Charge/Mixed/Defend/Command are the four available *battle tactics* whose effects are encoded in four dedicated stat-modifier tables at `0xC138C–0xC15FC`; the actual *personalities* (e.g. Lone Wolf, Nonchalant, Aggressive, Kindly) are a separate, larger set that drives AI, stat growth, and co-op skill eligibility.
+DWM2's personality system is built on **four hidden integer traits** — Bravery, Prudence, Caring, and Motivation — that are invisible to the player, rise and fall based on in-battle behavior (which tactic/command the monster performs, whether it flees), and combine to select one of **27 personality types** (a 3×3×3 cube of Bravery×Prudence×Caring tiers, with Motivation acting as a separate modifier and enabler). A common misconception — modeling `Personality = { Charge, Mixed, Defend, Command }` — **mis-identifies the four battle commands as personality types**. In the ROM, Charge/Mixed/Defend/Command are the four available *battle tactics* whose effects are encoded in four dedicated stat-modifier tables at `0xC138C–0xC15FC`; the actual *personalities* (e.g. Lone Wolf, Nonchalant, Aggressive, Kindly) are a separate, larger set that drives AI, stat growth, and co-op skill eligibility.
 
 A key structural finding: the local extraction contains the **tactic tables** and the **per-prebuilt-enemy aptitude/motivation storage**, but does **not** contain the **27-personality definition table** (the trait→personality mapping, or the personality→AI/growth/co-op tables). Those exist in the ROM but are not in this repo's documented maps; they are documented only on the wiki and in community guides.
 
@@ -243,7 +243,7 @@ The party struct (~34–42 bytes per entry, exact size undetermined) holds the p
 - **Bravery/Prudence/Caring trait bytes: [Unknown]** — not confirmed present.
 - **Motivation byte: [Unknown]** — not confirmed present (the prebuilt struct has it at `+0x18`, but the party struct layout differs and was not fully mapped).
 
-**Implication for save/load modeling:** The prebuilt struct's 4 trait bytes (offsets 22–25) are the only personality-system bytes whose storage location is *confirmed* in this extraction, and they apply to *encountered* monsters. For *party* monsters (what MonTamer must save/load), the trait/personality byte offsets are **not determined by this repo** and would require either (a) further WRAM probing with a live ROM, or (b) consulting the upstream [DWM2 disassembly](https://github.com/niyadev/dwm2_disassembly_github).
+**Implication for save/load modeling:** The prebuilt struct's 4 trait bytes (offsets 22–25) are the only personality-system bytes whose storage location is *confirmed* in this extraction, and they apply to *encountered* monsters. For *party* monsters (the ones that need save/load), the trait/personality byte offsets are **not determined by this repo** and would require either (a) further WRAM probing with a live ROM, or (b) consulting the upstream [DWM2 disassembly](https://github.com/niyadev/dwm2_disassembly_github).
 
 ### (3) Core Monster Species Template — 47 bytes [ROM-verified, but contains NO personality data]
 
@@ -267,7 +267,7 @@ What this investigation could **not** determine from the local data + wiki:
 
 6. **ROM addresses for all five downstream effects (AI, obedience, crit, healing, co-op).** None mapped in this repo. **To resolve:** disassembly.
 
-7. **Authoritative English name canonicalization for the 27 personalities.** Wiki and guides use slightly different labels (Snob/Proud, Snobby/Stuck-up, Bigot/Egotist). **To resolve:** pick a canonical source for MonTamer's display strings (a design decision, out of scope for this findings doc).
+7. **Authoritative English name canonicalization for the 27 personalities.** Wiki and guides use slightly different labels (Snob/Proud, Snobby/Stuck-up, Bigot/Egotist). **To resolve:** pick a canonical source for display strings (a design decision, out of scope for this findings doc).
 
 8. **The "two possible special effects per trait" mechanic.** The wiki Personality page mentions each trait yields one of two special effects (e.g. very-high Bravery → either crit-up or damage-up depending on Motivation), but the exact effect table and thresholds are not numerically documented. **To resolve:** disassembly or a more mechanics-focused community guide.
 

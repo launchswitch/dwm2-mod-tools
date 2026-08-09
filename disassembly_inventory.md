@@ -1,7 +1,7 @@
 # Disassembly Inventory — niyadev/dwm2_disassembly_github
 
 **Date:** 2026-07-05
-**Purpose:** Honest accounting of what the vendored DWM2 disassembly contains, so MonTamer knows what's recoverable from it vs. what needs original design. This is reference material; the canonical source-of-truth docs for MonTamer live in this repo (`mechanics/`, `monster_data/`, `rom_maps/`, the research findings).
+**Purpose:** Honest accounting of what the vendored DWM2 disassembly contains, so modders know what's recoverable from it vs. what needs original design. This is reference material; the canonical source-of-truth docs live in this repo (`mechanics/`, `monster_data/`, `rom_maps/`, the research findings).
 
 **Location:** `/home/frank/repos/dwm2/dwm2_dissasembly_github/`
 **Status per its own README:** 0.0021% byte-match, dormant since 2022. The `dwm2_workbench` (sibling at `/home/frank/repos/dwm2/dwm2_workbench/`) wraps it with build tooling and verified it builds byte-identical to the clean Cobi ROM (`make build` + `make diff`).
@@ -20,7 +20,7 @@
 
 **Total:** ~3,181 lines of source, 31 function docs, 20 documented software variables.
 
-## What's useful for MonTamer
+## What's useful for modding
 
 ### 1. The bank-dispatch switch (`FUN_0355`)
 
@@ -62,7 +62,7 @@ If someone wanted to chase combat routines in the disassembly, the entry points 
 
 None of this work has been done. Combat routines remain undisassembled.
 
-## What's NOT in the disassembly (the things MonTamer needs)
+## What's NOT in the disassembly (the gaps)
 
 Confirmed absent (in banks not covered by the disassembly):
 - **Damage formula** — how ATK/DEF/skill-power/level combine
@@ -74,7 +74,7 @@ Confirmed absent (in banks not covered by the disassembly):
 - **Skill execution routine** — what runs when a monster uses a skill
 - **Resistance value semantics** — the byte meaning (immune/resist/normal/weak) is in code, not data, and not in any disassembled bank
 
-For these, MonTamer will use **original design informed by DWM2's data tables and the maintainer's knowledge of how the game plays.** See `coverage_map.md`.
+For these, modders will use **original design informed by DWM2's data tables and knowledge of how the game plays.** See `coverage_map.md`.
 
 ## `notes.txt`
 
