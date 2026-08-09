@@ -336,7 +336,7 @@ This is the key decision input for whether a combat simulator can be faithfully 
 
 ## Sources
 
-### Local extracted data (`/home/frank/repos/dwm2-hacking-tools/`)
+### Local extracted data (this repo)
 - `README.md` — overview; lines 67-87 (20-table inventory); line 149 (XML sourced from MetroWind/dwm2-tools).
 - `tools/mod_data.py` — the master table registry:
   - Lines 44-127: enums `ITEM_EFFECT_TYPES`, `ITEM_USABILITY`, `ITEM_TARGETING`, `ITEM_WORLD_MAP_ICON`, `RESISTANCE_ELEMENT_IDS`, `JOIN_RATE`.

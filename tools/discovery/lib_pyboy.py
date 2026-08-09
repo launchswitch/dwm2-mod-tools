@@ -31,9 +31,8 @@ try:
     from pyboy import PyBoy
 except ImportError as e:
     print(
-        "FATAL: pyboy not installed. Activate the venv:\n"
-        "  source /home/frank/repos/dwm2/.venv/bin/activate\n"
-        "or run tools via: /home/frank/repos/dwm2/.venv/bin/python tools/<tool>.py",
+        "FATAL: pyboy not installed. Install it with:\n"
+        "  pip install pyboy pillow",
         file=sys.stderr,
     )
     raise

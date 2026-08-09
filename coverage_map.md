@@ -121,4 +121,4 @@
 - Research findings (this repo, root): `personality_research_findings.md`, `stat_growth_research_findings.md`, `combat_research_findings.md`, `combat_reassessment_findings.md`
 - Mechanic specs: `mechanics/` (8 docs)
 - Raw data tables: `tools/mod_data.py`, `monster_data/`, `rom_maps/`
-- Disassembly: `disassembly_inventory.md` (this repo) → `/home/frank/repos/dwm2/dwm2_dissasembly_github/`
+- Disassembly: `disassembly_inventory.md` (this repo) → [niyadev/dwm2_disassembly_github](https://github.com/niyadev/dwm2_disassembly_github)

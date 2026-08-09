@@ -275,7 +275,7 @@ What this investigation could **not** determine from the local data + wiki:
 
 ## Sources
 
-### Local extracted data (this repo — `/home/frank/repos/dwm2-hacking-tools/`)
+### Local extracted data (this repo)
 - `README.md` — overview; line 81 lists the 4 personality tables.
 - `rom_maps/rom_map.txt` — lines 72-75: Charge/Mixed/Defend/Command effect-on-personality addresses (`0xC138C`–`0xC15FC` region).
 - `rom_maps/ram_map.md` — lines 121-144: prebuilt enemy struct (Charge/Defense/Motivation/Mixed aptitudes at `+0x16`–`+0x19`); lines 178-183: party-struct unknowns.

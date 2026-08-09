@@ -41,8 +41,10 @@ def stable_hram(pb, frames=60):
 def main():
     rom_path = Path(sys.argv[1]) if len(sys.argv) > 1 else None
     if not rom_path or not rom_path.exists():
+        repo_root = Path(__file__).resolve().parent.parent.parent
         for candidate in [
-            Path("/home/frank/repos/dwm2-online/public/rom/cobi_final.gbc"),
+            repo_root / "roms" / "cobi_clean.gbc",
+            repo_root / "roms" / "cobi_final.gbc",
         ]:
             if candidate.exists():
                 rom_path = candidate

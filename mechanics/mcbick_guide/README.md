@@ -10,8 +10,7 @@ transcribed verbatim. See `STATUS.md` for the per-page log.
 
 ## Why this matters
 
-This FAQ is the **combat-resolution spec** for DWM2. Where `dwm2-hacking-tools/`
-had data tables (skill MP costs, damage values, resistance bytes) but the
+This FAQ is the **combat-resolution spec** for DWM2. Where this repo's data tables (skill MP costs, damage values, resistance bytes) had
 *resolution rules* were [Unknown] (damage formula, crit rates, evasion,
 resistance value semantics, status durations), this guide closes those gaps
 with concrete formulas.

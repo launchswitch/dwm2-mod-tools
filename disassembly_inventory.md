@@ -3,8 +3,8 @@
 **Date:** 2026-07-05
 **Purpose:** Honest accounting of what the vendored DWM2 disassembly contains, so modders know what's recoverable from it vs. what needs original design. This is reference material; the canonical source-of-truth docs live in this repo (`mechanics/`, `monster_data/`, `rom_maps/`, the research findings).
 
-**Location:** `/home/frank/repos/dwm2/dwm2_dissasembly_github/`
-**Status per its own README:** 0.0021% byte-match, dormant since 2022. The `dwm2_workbench` (sibling at `/home/frank/repos/dwm2/dwm2_workbench/`) wraps it with build tooling and verified it builds byte-identical to the clean Cobi ROM (`make build` + `make diff`).
+**Location:** Clone the [niyadev/dwm2_disassembly_github](https://github.com/niyadev/dwm2_disassembly_github) repo locally.
+**Status per its own README:** 0.0021% byte-match, dormant since 2022. A build-workbench wrapper around it verified it builds byte-identical to the clean Cobi ROM (`make build` + `make diff`).
 
 ## Coverage summary
 
@@ -58,7 +58,7 @@ This tells us which banks hold scene/mode entry points but **none of these banks
 If someone wanted to chase combat routines in the disassembly, the entry points are:
 - `FUN_0355`'s dispatch targets (banks 1/2/3/49/7/36/160/242) — none disassembled beyond stubs
 - `FUN_077A` (called by `FUN_ROM1_4001` with arg 1) — likely the next-level dispatch
-- The `rst $10` long-call targets mentioned in `dwm2_workbench/NOTES.md` (G4 goal: "chase the rst $10 long-call targets visible from bank 0")
+- The `rst $10` long-call targets (G4 goal: "chase the rst $10 long-call targets visible from bank 0")
 
 None of this work has been done. Combat routines remain undisassembled.
 

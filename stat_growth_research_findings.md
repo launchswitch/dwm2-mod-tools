@@ -107,7 +107,7 @@ Three observations that jointly answer Q4:
 - Stat growth inputs = **species growth bytes + per-level table** (no personality). [ROM-verified inputs]
 - Personality's mechanical effects = **AI, obedience, special actions** — none of which are stat-multipliers anyway. [Wiki-documented effects; none mapped in ROM]
 
-So the `personality` parameter in `StatCalculator` is carrying a mechanic that the source game applies elsewhere (battle behavior), not at stat-computation time. Whether to drop it, repurpose it, or keep it as an original-design choice is a **design decision** and out of scope for this findings doc. The factual point is: **a faithful DWM2 stat-growth model takes species growth + level only; personality is not an input.**
+So a stat model that accepts `personality` as an input to stat computation is carrying a mechanic that the source game applies elsewhere (battle behavior), not at stat-computation time. Whether to drop it, repurpose it, or keep it as an original-design choice is a **design decision** and out of scope for this findings doc. The factual point is: **a faithful DWM2 stat-growth model takes species growth + level only; personality is not an input.**
 
 ---
 
@@ -129,7 +129,7 @@ So the `personality` parameter in `StatCalculator` is carrying a mechanic that t
 
 ## Sources
 
-### Local extracted data (`/home/frank/repos/dwm2-hacking-tools/`)
+### Local extracted data (this repo)
 - `rom_maps/rom_map.txt:68` — `stat growth tables` at `0x6A616` ("1 byte entries, 99 entries per table").
 - `rom_maps/rom_map.txt:72-75` — four tactic/personality effect tables at `0xC138C–0xC13EC` (different bank from stat growth).
 - `rom_maps/ram_map.md:120-144` — prebuilt enemy struct: stats at `+0x0A`–`+0x14`, trait/aptitude bytes at `+0x16`–`+0x19`.
