@@ -83,7 +83,7 @@ For these, modders will use **original design informed by DWM2's data tables and
 ## How to extend this
 
 If deeper extraction is wanted later, the path is:
-1. Use the workbench's runtime tools (`diff_wram.py`, `lockstep.py`) to observe what runs during a battle — this identifies the executing bank empirically without disassembling it.
+1. Use the runtime discovery tools in `tools/discovery/` (`explore_wram.py`, `wram_inspector.py`) to observe what runs during a battle — this identifies the executing bank empirically without disassembling it.
 2. Once the combat bank is identified, disassemble it with the same pseudo-Pascal style as the existing `documentation/` tree.
 3. The highest-value target is the **damage routine** — finding it would lift combat from "original design" to "faithful port."
 

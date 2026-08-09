@@ -9,13 +9,16 @@ This repository contains everything you need to edit game data tables — monste
 | Directory / File | Contents |
 |-----------|----------|
 | [`tools/`](tools/) | Python ROM hacking utilities |
+| [`tools/balancing/`](tools/balancing/) | Bulk stat-growth and skill-edit generators (output JSON for `mod_data.py`) |
+| [`tools/discovery/`](tools/discovery/) | Runtime memory-probing tools (requires PyBoy emulator) |
 | [`monster_data/`](monster_data/) | Complete species database (315 monsters, 554 breeding formulas) |
 | [`mechanics/`](mechanics/) | Mechanic specs: recruitment formula, resistances, skill requirements, encounters, items, magic keys, strings |
+| [`mechanics/mcbick_guide/`](mechanics/mcbick_guide/) | McBick's Advanced Skill Guide (captured GameFAQs FAQ — combat-resolution formulas) |
 | [`rom_maps/`](rom_maps/) | ROM and RAM memory maps |
 | [`dwm2u_reference/`](dwm2u_reference/) | DWM2 Ultimate hack analysis (case study) |
 | [`edits/`](edits/) | Example balancing edits (ready-to-apply JSON configs) |
 | [`coverage_map.md`](coverage_map.md) | **One-stop verdict**: which subsystems are faithful-portable vs. need original design |
-| [`disassembly_inventory.md`](disassembly_inventory.md) | What the vendored niyadev disassembly covers (and what it doesn't) |
+| [`disassembly_inventory.md`](disassembly_inventory.md) | What the [niyadev disassembly](https://github.com/niyadev/dwm2_disassembly_github) covers (and what it doesn't) |
 | [`personality_research_findings.md`](personality_research_findings.md) | DWM2 personality system: 4 traits → 27 personalities, tactics vs. personalities |
 | [`stat_growth_research_findings.md`](stat_growth_research_findings.md) | Stat growth is species+level only (personality does NOT affect it) |
 | [`combat_research_findings.md`](combat_research_findings.md) | Combat data inventory (skills, resistances, items, encounters) |
@@ -24,6 +27,16 @@ This repository contains everything you need to edit game data tables — monste
 ### Planning your own mod or reimplementation
 
 This repo is designed as a **single source of truth** for DWM2 game data. Before designing any subsystem, read [`coverage_map.md`](coverage_map.md) — it says whether a mechanic is [ROM-verified], [Mechanic-documented], or [Unknown].
+
+### Research findings — what modders should know
+
+The four research docs in the repo root are the result of systematic reverse-engineering of DWM2's mechanics. **Read the relevant one before modding that subsystem** — they tell you what's actually in the ROM vs. what's community lore vs. what's simply unknown:
+
+- **[`coverage_map.md`](coverage_map.md)** — Start here. One-stop table of every DWM2 subsystem, verdict on whether it's fully mapped in the ROM, and pointers to the right doc.
+- **[`personality_research_findings.md`](personality_research_findings.md)** — The personality system (4 traits, 27 personalities, how they affect AI/obedience — *not* stat growth). Read before editing personality tables.
+- **[`stat_growth_research_findings.md`](stat_growth_research_findings.md)** — Proves stat growth is species + level only (personality is NOT an input). Read before touching growth rates or designing stat systems.
+- **[`combat_research_findings.md`](combat_research_findings.md)** + **[`combat_reassessment_findings.md`](combat_reassessment_findings.md)** — Complete inventory of combat data: skills, resistances, items, encounters, and where the gaps are (damage formula, crit tables). Read before balancing combat.
+- **[`mechanics/mcbick_guide/`](mechanics/mcbick_guide/)** — McBick's Advanced Skill Guide (GameFAQs FAQ #78461, captured verbatim). This is the combat-resolution spec: damage formulas, evasion, crit rates, resistance multipliers, every skill's stats. Closes the gaps the ROM data tables can't.
 
 ## Quick Start
 
@@ -73,6 +86,33 @@ python tools/mod_data.py your_rom.gbc \
     --output patched_rom.gbc
 ```
 
+### Runtime Memory Tools (`tools/discovery/`)
+
+For reverse-engineering live game state — probing WRAM, mapping struct layouts, finding where data lives at runtime. Requires [PyBoy](https://github.com/Baekalfen/PyBoy) (`pip install pyboy pillow`).
+
+```bash
+# Interactive WRAM explorer — search for species IDs, dump memory ranges
+python tools/discovery/explore_wram.py your_rom.gbc --search-species 25
+
+# Snapshot and diff WRAM between game states
+python tools/discovery/wram_inspector.py --diff-snapshots before.json after.json
+
+# Probe HRAM for battle/breeding state flags
+python tools/discovery/probe_hram.py your_rom.gbc
+```
+
+These tools share a common library (`lib_pyboy.py`) that handles emulator setup, memory snapshots, and save states. See [`docs/tools_guide.md`](docs/tools_guide.md) for details.
+
+### Verify Your Setup
+
+```bash
+# Check repo integrity (structure, table registry, data files, portability)
+python tools/verify.py
+
+# Also test against a ROM file
+python tools/verify.py your_rom.gbc
+```
+
 ## Supported Data Tables
 
 `mod_data.py` supports **20 data tables** covering all documented game data:
@@ -119,6 +159,20 @@ Variable-length tables (arena_rewards, random_encounters) use custom parsers. Fi
 3. **DWM2 Ultimate cross-reference** — A known ROM hack with 441 patch locations was analyzed to validate table offsets and field semantics
 4. **Runtime verification** — PyBoy (headless GBC emulator) was used to verify patched ROMs boot correctly and that memory state matches expectations
 5. **Label generation** — 375/441 DWM2U patches were labeled with table/entry/field semantics
+6. **Community guide capture** — McBick's Advanced Skill Guide (GameFAQs) was captured via `tools/extract_gamefaqs_faq.py` and `tools/extract_neoseeker_personality.py` to fill gaps in combat-resolution data (damage formulas, crit rates, evasion, resistance semantics). These are one-time provenance scripts — not needed for normal modding, but included for reproducibility.
+
+## Example Edit Configs (`edits/`)
+
+The `edits/` directory contains JSON configs from a real balancing mod (the "G5" project). These are **reference examples** — not prescriptive. Use them as templates for your own edits, or apply them directly if you want the same balance changes.
+
+| File | What It Does | Table |
+|------|-------------|-------|
+| `phase2_pass1-4.json` | Boost the bottom ~40 weakest monsters' growth rates to match their family theme | `core_monster` |
+| `phase3_skills.json` | Swap skills for thematic consistency (e.g., give tanky monsters defensive skills) | `core_monster` |
+| `phase4_exp.json` | Reduce EXP requirements for rare/Lord-tier monsters | `core_monster` |
+| `postgame_bosses.json` | Expand boss fights with additional enemies | `boss_battles` |
+
+The corresponding `tools/balancing/generate_*.py` scripts produced these files. Read them to understand the logic, then write your own for your mod's balance goals.
 
 ## Example: Nerf NPC Breeding Partners
 

@@ -1,5 +1,5 @@
 """
-lib_pyboy.py — Common PyBoy setup and helpers for DWM2 workbench.
+lib_pyboy.py — Common PyBoy setup and helpers for DWM2 mod tools.
 
 Wraps the boilerplate of loading a ROM with the right flags, exposes
 useful primitives (memory dumps, register snapshots, save states),
@@ -21,10 +21,10 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-# Locate the boot ROM stub we ship with the workbench
-WORKBENCH_ROOT = Path(__file__).resolve().parent.parent
-BOOT_ROM_STUB = WORKBENCH_ROOT / "roms" / "bootrom_cgb_stub.bin"
-DEFAULT_ROM_DIR = WORKBENCH_ROOT / "roms"
+# Locate the boot ROM stub (if shipped) and default ROM directory
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+BOOT_ROM_STUB = REPO_ROOT / "roms" / "bootrom_cgb_stub.bin"
+DEFAULT_ROM_DIR = REPO_ROOT / "roms"
 
 # PyBoy is heavy; import lazily so CLI tools can fail fast on missing dep
 try:
@@ -47,7 +47,7 @@ def make_pyboy(
     symbols: Optional[str] = None,
     log_level: str = "WARNING",
 ) -> "PyBoy":
-    """Construct a PyBoy instance with workbench defaults.
+    """Construct a PyBoy instance with sensible defaults.
 
     The bundled CGB boot ROM stub is used by default because the PyBoy-shipped
     stub is broken (mostly NOPs that loop forever at $07F1). Pass
